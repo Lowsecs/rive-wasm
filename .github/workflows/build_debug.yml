@@ -43,7 +43,7 @@ jobs:
       - name: Build Debug WASM
         run: |
           cd js
-          EMCC_DEBUG=1 ./build_wasm.sh
+          EMCC_DEBUG=1 ./build.sh
           
       - name: Upload Debug WASM Artifacts
         uses: actions/upload-artifact@v4
