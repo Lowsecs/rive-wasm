@@ -39,6 +39,7 @@ jobs:
           
       - name: Build Debug WASM
         run: |
+          cd wasm
           EMCC_DEBUG=1 ./build_wasm.sh
           
       - name: Upload Debug WASM Artifacts
@@ -46,5 +47,5 @@ jobs:
         with:
           name: debug-wasm
           path: |
-            build/**/*.wasm
+            wasm/build/**/*.wasm
           retention-days: 30
