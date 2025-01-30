@@ -42,7 +42,7 @@ jobs:
           EMCC_DEBUG=1 ./build_wasm.sh
           
       - name: Upload Debug WASM Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: debug-wasm
           path: |
