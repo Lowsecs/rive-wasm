@@ -36,10 +36,13 @@ jobs:
           sudo chmod a+x premake5
           sudo mv premake5 /usr/local/bin
           pip3 install ply
+
+      - name: Setup Ninja
+        uses: seanmiddleditch/gha-setup-ninja@master
           
       - name: Build Debug WASM
         run: |
-          cd wasm
+          cd js
           EMCC_DEBUG=1 ./build_wasm.sh
           
       - name: Upload Debug WASM Artifacts
@@ -47,5 +50,5 @@ jobs:
         with:
           name: debug-wasm
           path: |
-            wasm/build/**/*.wasm
+            js/build/**/*.wasm
           retention-days: 30
