@@ -43,7 +43,7 @@ jobs:
       - name: Build Debug WASM
         run: |
           cd wasm
-          EMCC_DEBUG=1 ./build_wasm.sh -r webgl2 release
+          MAKEFLAGS="-j$(nproc)" EMCC_DEBUG=1 ./build_wasm.sh -r webgl2 release
           
       - name: Upload Debug WASM Artifacts
         uses: actions/upload-artifact@v4
