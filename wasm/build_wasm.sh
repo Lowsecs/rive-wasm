@@ -49,11 +49,12 @@ else
     echo using your custom installed emsdk
 fi
 
+OUT_DIR=${OUT_DIR:-"build/bin/release"}
+
 OPTIONS=1
 PREMAKE_FLAGS="--arch=wasm --out=$OUT_DIR "
 PREMAKE_HEAVY_FLAGS="--with_rive_text --with_rive_audio=system --with_rive_layout "
 WD=$(pwd)
-NCPU=$(getconf _NPROCESSORS_ONLN 2>/dev/null || sysctl -n hw.ncpu)
 export EMCC_CLOSURE_ARGS="--externs $WD/js/externs.js"
 while getopts "clsr:" flag; do
     case "${flag}" in
@@ -104,11 +105,11 @@ elif [ "$OPTION" = "clean" ]; then
     rm -fR ./build
     exit 0
 elif [ "$OPTION" = "tools" ]; then
-    $PREMAKE gmake2 $PREMAKE_FLAGS && CFLAGS=-DENABLE_QUERY_FLAT_VERTICES CXXFLAGS=-DENABLE_QUERY_FLAT_VERTICES make -C $OUT_DIR -j$NCPU
+    $PREMAKE gmake2 $PREMAKE_FLAGS && CFLAGS=-DENABLE_QUERY_FLAT_VERTICES CXXFLAGS=-DENABLE_QUERY_FLAT_VERTICES make -C $OUT_DIR
 elif [ "$OPTION" = "release" ]; then
-    $PREMAKE gmake2 $PREMAKE_FLAGS --config=release gmake2 && make -C $OUT_DIR -j$NCPU
+    $PREMAKE gmake2 $PREMAKE_FLAGS --config=release gmake2 && make -C $OUT_DIR
 else
-    $PREMAKE gmake2 $PREMAKE_FLAGS && make -C $OUT_DIR -j$NCPU
+    $PREMAKE gmake2 $PREMAKE_FLAGS && make -C $OUT_DIR
 fi
 
 # If you want to run the leak checker with debug symbols, copy
